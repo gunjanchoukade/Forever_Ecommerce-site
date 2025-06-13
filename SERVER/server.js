@@ -15,15 +15,15 @@ const app = express();
 //middlewares
 app.use(express.json())
 app.use(cors())
-
 app.use("/user",userRouter);
 app.use('/products',productRouter)
 app.use('/cart',cartRouter)
 app.use('/order',orderRouter)
-app.listen(process.env.port,()=>{
-    app.get('/',(req,res)=>{
+
+app.get('/',(req,res)=>{
         res.send("API is working")
-    })
+})
+app.listen(process.env.port,()=>{
     console.log("Server is running on port",process.env.port);
     connectionToDB();
     Connectcloudinary()
