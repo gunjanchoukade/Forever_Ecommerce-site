@@ -23,8 +23,19 @@ app.use('/order',orderRouter)
 app.get('/',(req,res)=>{
         res.send("API is working")
 })
-app.listen(process.env.port,()=>{
-    console.log("Server is running on port",process.env.port);
-    connectionToDB();
-    Connectcloudinary()
-})
+
+const startServer = async () => {
+    try {
+        await connectionToDB();
+        await Connectcloudinary();
+
+        app.listen(process.env.port, () => {
+            console.log("Server is running on port", process.env.port);
+        });
+    } catch (error) {
+        console.error(error);
+        process.exit(1);
+    }
+}
+
+startServer();
