@@ -15,7 +15,7 @@ const Login = () => {
     event.preventDefault()
     try{
       if(currentState === 'Sign Up'){
-        const response = await axios.post(`${backendURL}/user/regiser`,{name,email,password});
+        const response = await axios.post(`${backendURL}/user/register`,{name,email,password});
         if(response.status == 200){
           const tok = response.data.token
           setToken(response.data.token);
