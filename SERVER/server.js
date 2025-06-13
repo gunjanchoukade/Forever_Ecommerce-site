@@ -21,6 +21,9 @@ app.use('/products',productRouter)
 app.use('/cart',cartRouter)
 app.use('/order',orderRouter)
 app.listen(process.env.port,()=>{
+    app.get('/',(req,res)=>{
+        res.send("API is working")
+    })
     console.log("Server is running on port",process.env.port);
     connectionToDB();
     Connectcloudinary()

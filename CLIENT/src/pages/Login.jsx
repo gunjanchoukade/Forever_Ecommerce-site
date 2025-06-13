@@ -10,11 +10,12 @@ const Login = () => {
   const [password,setPassword] = useState('')
   const[currentState,setCurrentState] = useState('Sign Up')
   const {token,setToken} = useContext(shopDataContext)
+  const backendURL = import.meta.env.VITE_BACKEND_URL
   const submitHandler= async (event)=>{
     event.preventDefault()
     try{
       if(currentState === 'Sign Up'){
-        const response = await axios.post("http://localhost:3000/user/register",{name,email,password});
+        const response = await axios.post(`${backendURL}/user/regiser`,{name,email,password});
         if(response.status == 200){
           const tok = response.data.token
           setToken(response.data.token);
@@ -25,7 +26,7 @@ const Login = () => {
           toast.error("there might be some error try again!")
         }
       }else{
-        const response = await axios.post('http://localhost:3000/user/login',{email,password});
+        const response = await axios.post(`${backendURL}/user/login`,{email,password});
         if(response.status == 200){
           setToken(response.data.token);
           localStorage.setItem("token",token);

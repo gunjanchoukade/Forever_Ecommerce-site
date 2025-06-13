@@ -7,7 +7,7 @@ import assets from '../assets/assets.js';
 
 
 const Orders = ({token}) => {
-  
+  const backendURL = import.meta.env.VITE_BACKEND_URL
   const [orders,setOrders] = useState([]);
 
   const fetchOrders = async () =>{
@@ -16,7 +16,7 @@ const Orders = ({token}) => {
       return null;
     }
     try{
-      const response = await axios.post("http://localhost:3000/order/list",{},{headers:{token}})
+      const response = await axios.post(`${backendURL}/order/list`,{},{headers:{token}})
       if(response.status==200){
         console.log(response.data)
         setOrders(response.data.orders);
@@ -27,7 +27,7 @@ const Orders = ({token}) => {
   }
   const updateStatus = async (id,event)=>{
     try {
-      const response = await axios.post("http://localhost:3000/order/status",{id,status:event.target.value},{headers:{token}});
+      const response = await axios.post(`${backendURL}/order/status`,{id,status:event.target.value},{headers:{token}});
       await fetchOrders();
     } catch (error) {
         console.log(error);

@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 const Orders = () => {
   const {products,currency,token} = useContext(shopDataContext)
-
+  const backendURL = import.meta.env.VITE_BACKEND_URL
   const[ordersPlaced,setOrdersPlaced] = useState([])
 
   const loadOrders = async () => {
@@ -14,7 +14,7 @@ const Orders = () => {
       if(!token){
       return null;
       }
-      const response = await axios.post("http://localhost:3000/order/user-orders",{},{headers:{token}})
+      const response = await axios.post(`${backendURL}/order/user-order`,{},{headers:{token}})
 
       //now we have multiple orders and inside order we have items so to put all items together this is done below
       if(response.status == 200){

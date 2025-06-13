@@ -7,6 +7,7 @@ import { Link, Navigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 const PlaceOrders = () => {
+  const backendURL = import.meta.env.VITE_BACKEND_URL
   const {products,cartTotal,currency,delivery_fee,cartItems,token} = useContext(shopDataContext)
   const [method,setMethod] = useState('cod')
   const [formData,setFormData] = useState({
@@ -67,7 +68,7 @@ const PlaceOrders = () => {
     
       switch(method){
         case 'cod':
-          const response = await axios.post("http://localhost:3000/order/place",orderData,{headers:{token}})
+          const response = await axios.post(`${backendURL}/order/place`,orderData,{headers:{token}})
           console.log(response)
           if(response.status == 200){
             toast.success("Order placed!!")
@@ -76,7 +77,7 @@ const PlaceOrders = () => {
           break;
 
         case 'stripe':
-          const responsStripe = await axios.post("http://localhost:3000/order/stripe",orderData,{headers:{token}})
+          const responsStripe = await axios.post(`${backendURL}/order/stripe`,orderData,{headers:{token}})
           if(responsStripe.data.success){
             const {session_url}=responsStripe.data;
             window.location.replace(session_url)

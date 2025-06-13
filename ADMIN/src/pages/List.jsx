@@ -5,12 +5,13 @@ import { useState ,useEffect} from 'react'
 
 
 const List =  ({token}) => {
+  const backendURL = import.meta.env.VITE_BACKEND_URL
   const [list,setList] = useState([])
   
   const fetchList = async ()=>{
     try{
       
-      const response  = await axios.get("http://localhost:3000/products/list");
+      const response  = await axios.get(`${backendURL}/products/list`);
       setList(response.data.products)
       
     }
@@ -20,7 +21,7 @@ const List =  ({token}) => {
   }
 
   const removeProduct = async(id)=>{
-    const response = await axios.post("http://localhost:3000/products/remove",{id},{headers:{token}})
+    const response = await axios.post(`${backendURL}/products/remove`,{id},{headers:{token}})
     if(response.status==200){
       await fetchList();
     }

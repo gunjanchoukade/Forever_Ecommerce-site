@@ -18,6 +18,8 @@ const Add =({token}) => {
   const [size,setSize] = useState([])
   const [bestSeller,setBestSeller] = useState(false)
 
+  const backendURL = import.meta.env.VITE_BACKEND_URL
+
   const submitHandler = async (e)=>{
     e.preventDefault();
     
@@ -38,7 +40,7 @@ const Add =({token}) => {
       image3 && formData.append("image3",image3)
       image4 && formData.append("image4",image4)
 
-      const response = await axios.post("http://localhost:3000/products/add",formData,{headers:{token}});
+      const response = await axios.post(`${backendURL}/products/add`,formData,{headers:{token}});
       if(response.status == 200){
         setName('')
         setDescription('')

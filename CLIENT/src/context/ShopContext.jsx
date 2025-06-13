@@ -16,6 +16,7 @@ const ShopProvider = ({children})=>{
     const [token,setToken] = useState('')
     const cartData = structuredClone(cartItems);
 
+    const backendURL = import.meta.env.VITE_BACKEND_URL
     const addItemstoCart=async (id,size)=>{
         if(!size){
             toast.error("Please,Select any size!");
@@ -34,9 +35,9 @@ const ShopProvider = ({children})=>{
         setCartItems(cartData)
         if(token){
             try{
-                console.log("hi")
-                const response = await axios.post("http://localhost:3000/cart/add",{id,size},{headers:{token}})
-                console.log("add shop context respone",response);
+                
+                const response = await axios.post(`${backendURL}/cart/add`,{id,size},{headers:{token}})
+                
             }catch(error)
             {
                 console.log(error)
@@ -63,8 +64,8 @@ const ShopProvider = ({children})=>{
         setCartItems(copyOfCart);
         if(token){
             try {
-                const response = await axios.post("http://localhost:3000/cart/update",{id,size,quantity},{headers:{token}})
-                console.log(response)
+                const response = await axios.post(`${backendURL}/cart/update`,{id,size,quantity},{headers:{token}})
+                
             } catch (error) {
                 console.log(error)
             }
@@ -89,7 +90,7 @@ const ShopProvider = ({children})=>{
 
     const getProducts = async () => {
         try{
-            const response =  await axios.get("http://localhost:3000/products/list")
+            const response =  await axios.get(`${backendURL}/products/list`)
 
             if(response.status == 200){
                 setProducts(response.data.products)
@@ -101,12 +102,13 @@ const ShopProvider = ({children})=>{
     }
 
     const setUserCartAfterRefresh =async (token) =>{
-        const response = await axios.post("http://localhost:3000/cart/get",{},{headers:{token}})
+        const response = await axios.post(`${backendURL}/cart/get`,{},{headers:{token}})
         setCartItems(response.data.cartData)
     }
 
     useEffect(()=>{
         getProducts()
+        console.log(backendURL)
     },[])
 
     useEffect(()=>{

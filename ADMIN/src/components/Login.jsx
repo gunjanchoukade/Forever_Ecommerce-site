@@ -3,11 +3,11 @@ import {useState} from 'react'
 const Login = ({setToken}) => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
-
+  const backendURL = import.meta.env.VITE_BACKEND_URL
   const submitHandler = async (e) =>{
     e.preventDefault();
     try{
-      const response = await axios.post("http://localhost:3000/user/admin-login",{email,password}) 
+      const response = await axios.post(`${backendURL}/user/admin-login`,{email,password}) 
       if(response.status==200){
         console.log(response.data.token)
         setToken(response.data.token);

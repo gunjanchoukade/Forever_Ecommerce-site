@@ -5,7 +5,7 @@ import { shopDataContext } from '../context/ShopContext'
 import axios from 'axios'
 
 const Verify = () => {
-
+    const backendURL = import.meta.env.VITE_BACKEND_URL
     const {setCartItems,token} = useContext(shopDataContext)
     const [searchParam,setSearchParam] = useSearchParams()
 
@@ -18,7 +18,7 @@ const Verify = () => {
             if(!token){
                 return null;
             }
-            const response = await axios.post("http://localhost:3000/order/verify-stripe",{success,orderId},{headers:{token}})
+            const response = await axios.post(`${backendURL}/order/verify-stripe`,{success,orderId},{headers:{token}})
             if(response.data.success)
             {
                 setCartItems({})

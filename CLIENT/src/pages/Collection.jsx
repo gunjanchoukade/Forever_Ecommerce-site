@@ -11,7 +11,6 @@ const Collection = () => {
   const [type,setType] = useState([]);
   useEffect(()=>{
     setAllItems(products)
-    console.log(products)
     
   },[products])
 

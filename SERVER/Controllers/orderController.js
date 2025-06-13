@@ -1,8 +1,11 @@
 import orderModel from "../Models/orderModel.js";
 import userModel from "../Models/userModel.js";
 import Stripe from "stripe"
+import dotenv from "dotenv"
+dotenv.config()
 
-const stripe = new Stripe("sk_test_51RZDtu02oM3E7zOzctdmpt1nU7iNMfZUNFaAanUmkipK8voIAWX1Sxe3Wve9ED4GddD9hU9JpzvOUGDgjfsY5Bc2009ELwfIGk")
+
+const stripe = new Stripe(process.env.STR_SEC_KEY)
 const deliveryCharge = 10
 const placeOrder = async (req,res)=>{
     try {
