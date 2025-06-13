@@ -14,7 +14,7 @@ const Orders = () => {
       if(!token){
       return null;
       }
-      const response = await axios.post(`${backendURL}/order/user-order`,{},{headers:{token}})
+      const response = await axios.post(`${backendURL}/order/user-orders`,{},{headers:{token}})
 
       //now we have multiple orders and inside order we have items so to put all items together this is done below
       if(response.status == 200){
